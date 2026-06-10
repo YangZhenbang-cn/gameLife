@@ -85,17 +85,17 @@ export default function RelationshipList({ relationships }: RelationshipListProp
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <h3 className="section-title">&#x1f91d; 关系网络</h3>
+      <h3 className="section-title">🤝 关系网络</h3>
 
       <div className="space-y-4">
-        <RelationshipSection title="家庭成员" icon="&#x1f46a;" items={relationships.family} />
-        <RelationshipSection title="好友" icon="&#x1f93d;" items={relationships.closeFriends} />
+        <RelationshipSection title="家庭成员" icon="👪" items={relationships.family} />
+        <RelationshipSection title="好友" icon="🤽" items={relationships.closeFriends} />
 
         {/* 暗恋对象 */}
         {relationships.crush && (
           <div>
             <h4 className="text-xs font-mono mb-2" style={{ color: 'var(--danger)' }}>
-              &#x1f498; 暗恋
+              💘 暗恋
             </h4>
             <motion.div
               className="flex items-center gap-2 p-2 rounded"
@@ -117,7 +117,7 @@ export default function RelationshipList({ relationships }: RelationshipListProp
 
         {/* 敌人 */}
         {relationships.enemies.length > 0 && (
-          <RelationshipSection title="宿敌" icon="&#x2694;" items={relationships.enemies} />
+          <RelationshipSection title="宿敌" icon="⚔" items={relationships.enemies} />
         )}
       </div>
     </motion.div>

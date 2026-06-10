@@ -19,7 +19,7 @@ export default function TaskPanel({ tasks, onSideTaskToggle, onDailyTaskToggle }
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <h3 className="section-title">&#x1f4cb; 任务面板</h3>
+      <h3 className="section-title">📋 任务面板</h3>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* 主线任务 */}
@@ -31,7 +31,7 @@ export default function TaskPanel({ tasks, onSideTaskToggle, onDailyTaskToggle }
               borderBottom: '2px solid var(--accent)',
             }}
           >
-            &#x2b50; 主线任务
+            ⭐ 主线任务
           </h4>
           <motion.div
             className="p-3 rounded"
@@ -73,7 +73,7 @@ export default function TaskPanel({ tasks, onSideTaskToggle, onDailyTaskToggle }
               borderBottom: '2px solid var(--warning)',
             }}
           >
-            &#x1f539; 支线任务
+            🔹 支线任务
           </h4>
           <div className="space-y-2">
             {tasks.side.map((quest, index) => (
@@ -103,7 +103,7 @@ export default function TaskPanel({ tasks, onSideTaskToggle, onDailyTaskToggle }
                 >
                   {quest.done && (
                     <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-sm">
-                      &#x2713;
+                      ✓
                     </motion.span>
                   )}
                 </motion.div>
@@ -126,7 +126,7 @@ export default function TaskPanel({ tasks, onSideTaskToggle, onDailyTaskToggle }
                     className="text-sm"
                     style={{ color: 'var(--success)' }}
                   >
-                    &#x2728;
+                    ✨
                   </motion.span>
                 )}
               </motion.div>
@@ -143,7 +143,7 @@ export default function TaskPanel({ tasks, onSideTaskToggle, onDailyTaskToggle }
               borderBottom: '2px solid var(--success)',
             }}
           >
-            &#x1f504; 每日任务
+            🔄 每日任务
           </h4>
           <div className="space-y-2">
             {tasks.daily.map((quest, index) => (
@@ -174,7 +174,7 @@ export default function TaskPanel({ tasks, onSideTaskToggle, onDailyTaskToggle }
                 >
                   {quest.done && (
                     <motion.span initial={{ scale: 0 }} animate={{ scale: 1 }} className="text-xs">
-                      &#x2713;
+                      ✓
                     </motion.span>
                   )}
                 </motion.div>

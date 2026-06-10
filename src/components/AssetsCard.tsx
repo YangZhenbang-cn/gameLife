@@ -24,7 +24,7 @@ export default function AssetsCard({ assets }: AssetsCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <h3 className="section-title">&#x1f4b0; 资产面板</h3>
+      <h3 className="section-title">💰 资产面板</h3>
 
       {/* 金币 */}
       <div className="mb-4 text-center">
@@ -35,7 +35,7 @@ export default function AssetsCard({ assets }: AssetsCardProps) {
           animate={{ scale: 1 }}
           transition={{ type: 'spring', delay: 0.2 }}
         >
-          &#x1fa99; {formatGold(assets.gold)}
+          🪙 {formatGold(assets.gold)}
         </motion.div>
         <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
           金币储备
@@ -54,12 +54,12 @@ export default function AssetsCard({ assets }: AssetsCardProps) {
         {/* 固定资产 */}
         <div className="p-3 rounded" style={{ backgroundColor: 'var(--bg-secondary)' }}>
           <h4 className="font-bold mb-1" style={{ color: 'var(--success)' }}>
-            &#x1f3e0; 固定资产
+            🏠 固定资产
           </h4>
           {assets.fixedAssets.length > 0 ? (
             <ul className="space-y-1" style={{ color: 'var(--text-primary)' }}>
               {assets.fixedAssets.map((item, i) => (
-                <li key={i}>&#x2022; {item}</li>
+                <li key={i}>• {item}</li>
               ))}
             </ul>
           ) : (
@@ -70,7 +70,7 @@ export default function AssetsCard({ assets }: AssetsCardProps) {
         {/* 负债 */}
         <div className="p-3 rounded" style={{ backgroundColor: 'var(--bg-secondary)' }}>
           <h4 className="font-bold mb-1" style={{ color: 'var(--danger)' }}>
-            &#x1f4c9; 负债
+            📉 负债
           </h4>
           <span className="text-lg font-display" style={{ color: 'var(--danger)' }}>
             {formatGold(assets.debt)}
@@ -80,7 +80,7 @@ export default function AssetsCard({ assets }: AssetsCardProps) {
 
       {/* 空闲时间 */}
       <div className="mt-3 p-2 rounded text-center text-xs" style={{ backgroundColor: 'var(--bg-secondary)' }}>
-        <span style={{ color: 'var(--text-secondary)' }}>&#x23f3; 空闲时间：</span>
+        <span style={{ color: 'var(--text-secondary)' }}>⏳ 空闲时间：</span>
         <span className="font-bold" style={{ color: 'var(--accent)' }}>
           {assets.freeTime}
         </span>

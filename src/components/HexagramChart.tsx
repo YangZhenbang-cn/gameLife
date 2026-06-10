@@ -74,7 +74,7 @@ export default function HexagramChart({ hexagram }: HexagramChartProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      <h3 className="section-title">&#x2b50; 六维雷达图</h3>
+      <h3 className="section-title">⭐ 六维雷达图</h3>
       <div style={{ width: '100%', height: 320 }}>
         <ResponsiveContainer>
           <RadarChart data={data} cx="50%" cy="50%" outerRadius="75%">

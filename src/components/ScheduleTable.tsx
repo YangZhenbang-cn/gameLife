@@ -9,13 +9,13 @@ interface ScheduleTableProps {
 
 export default function ScheduleTable({ schedule }: ScheduleTableProps) {
   const rows: Array<{ label: string; icon: string; value: string }> = [
-    { label: '起床', icon: '&#x1f305;', value: schedule.wakeUp },
-    { label: '工作时间', icon: '&#x1f4bc;', value: schedule.workHours },
-    { label: '午休', icon: '&#x1f35c;', value: schedule.lunchBreak },
-    { label: '就寝', icon: '&#x1f319;', value: schedule.sleep },
-    { label: '周末', icon: '&#x1f389;', value: schedule.weekend },
-    { label: '通勤', icon: '&#x1f687;', value: schedule.commute },
-    { label: '饮食', icon: '&#x1f372;', value: schedule.diet },
+    { label: '起床', icon: '🌅', value: schedule.wakeUp },
+    { label: '工作时间', icon: '💼', value: schedule.workHours },
+    { label: '午休', icon: '🍜', value: schedule.lunchBreak },
+    { label: '就寝', icon: '🌙', value: schedule.sleep },
+    { label: '周末', icon: '🎉', value: schedule.weekend },
+    { label: '通勤', icon: '🚇', value: schedule.commute },
+    { label: '饮食', icon: '🍲', value: schedule.diet },
   ];
 
   return (
@@ -25,7 +25,7 @@ export default function ScheduleTable({ schedule }: ScheduleTableProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.05 }}
     >
-      <h3 className="section-title">&#x1f4c5; 作息时间轴</h3>
+      <h3 className="section-title">📅 作息时间轴</h3>
 
       {/* 时间轴 */}
       <div className="space-y-0 mb-4">
@@ -55,7 +55,7 @@ export default function ScheduleTable({ schedule }: ScheduleTableProps) {
       {/* 常去地点 */}
       <div className="mb-3">
         <h4 className="text-xs font-mono mb-2" style={{ color: 'var(--accent)' }}>
-          &#x1f4cd; 常去地点
+          📍 常去地点
         </h4>
         <div className="flex flex-wrap gap-1">
           {schedule.frequentPlaces.map((place, i) => (
@@ -67,7 +67,7 @@ export default function ScheduleTable({ schedule }: ScheduleTableProps) {
       {/* 娱乐 */}
       <div>
         <h4 className="text-xs font-mono mb-2" style={{ color: 'var(--accent)' }}>
-          &#x1f3ae; 娱乐方式
+          🎮 娱乐方式
         </h4>
         <div className="flex flex-wrap gap-1">
           {schedule.entertainment.map((item, i) => (

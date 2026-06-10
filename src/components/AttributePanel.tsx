@@ -15,7 +15,7 @@ export default function AttributePanel({ attributes }: AttributePanelProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      <h3 className="section-title">&#x1f4ca; 自定义属性</h3>
+      <h3 className="section-title">📊 自定义属性</h3>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {attributes.map((attr, index) => {

@@ -8,10 +8,10 @@ interface SkillListProps {
 }
 
 const CATEGORY_CONFIG: Record<string, { label: string; icon: string }> = {
-  professional: { label: '专业技能', icon: '&#x2699;' },
-  life: { label: '生活技能', icon: '&#x1f3e0;' },
-  interests: { label: '兴趣爱好', icon: '&#x1f3a8;' },
-  passive: { label: '被动技能', icon: '&#x2728;' },
+  professional: { label: '专业技能', icon: '⚙' },
+  life: { label: '生活技能', icon: '🏠' },
+  interests: { label: '兴趣爱好', icon: '🎨' },
+  passive: { label: '被动技能', icon: '✨' },
 };
 
 function SkillRow({ skill, index }: { skill: SkillItem; index: number }) {
@@ -76,7 +76,7 @@ export default function SkillList({ skills }: SkillListProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <h3 className="section-title">&#x2694; 技能列表</h3>
+      <h3 className="section-title">⚔ 技能列表</h3>
 
       <div className="space-y-5">
         {activeCategories.map((cat) => {

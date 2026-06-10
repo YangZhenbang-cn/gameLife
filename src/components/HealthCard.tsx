@@ -15,7 +15,7 @@ export default function HealthCard({ health }: HealthCardProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.15 }}
     >
-      <h3 className="section-title">&#x2764; 健康卡</h3>
+      <h3 className="section-title">❤ 健康卡</h3>
 
       <div className="space-y-3">
         {/* 体质 */}
@@ -70,12 +70,12 @@ export default function HealthCard({ health }: HealthCardProps) {
                   animate={{ scale: 1 }}
                   transition={{ delay: i * 0.1, type: 'spring' }}
                 >
-                  &#x26a0; {item}
+                  ⚠ {item}
                 </motion.span>
               ))
             ) : (
               <span className="text-xs" style={{ color: 'var(--success)' }}>
-                &#x2714; 无已知过敏源
+                ✔ 无已知过敏源
               </span>
             )}
           </div>

@@ -50,7 +50,7 @@ export default function BasicInfoCard({
                 }}
               />
             ) : (
-              <span>&#x1f9d1;&#x200d;&#x1f4bb;</span>
+              <span>🧑‍💻</span>
             )}
           </div>
           <div
@@ -120,7 +120,7 @@ export default function BasicInfoCard({
               border: '1px solid var(--border-color)',
             }}
           >
-            <span style={{ color: 'var(--accent)' }}>&#x1f310; 地球OL</span>
+            <span style={{ color: 'var(--accent)' }}>🌐 地球OL</span>
             <span style={{ color: 'var(--text-primary)' }}>{basic.earthOL.server}</span>
             <span
               className="px-2 py-0.5 rounded"

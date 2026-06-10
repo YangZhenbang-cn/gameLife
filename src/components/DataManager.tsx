@@ -100,11 +100,11 @@ export default function DataManager({
         className="game-button"
         onClick={() => fileInputRef.current?.click()}
       >
-        &#x1f4e5; 导入
+        📥 导入
       </button>
 
       <button className="game-button" onClick={handleExportJSON}>
-        &#x1f4e4; 导出
+        📤 导出
       </button>
 
       <div className="relative">
@@ -112,7 +112,7 @@ export default function DataManager({
           className="game-button"
           onClick={() => setShowExportMenu(!showExportMenu)}
         >
-          &#x1f5bc; 卡片
+          🖼 卡片
         </button>
 
         <AnimatePresence>
@@ -137,7 +137,7 @@ export default function DataManager({
                 }}
                 onClick={() => handleExportImage('card')}
               >
-                &#x1f4c7; 基本信息 + 雷达图
+                📇 基本信息 + 雷达图
               </button>
               <button
                 className="w-full text-left px-3 py-2 rounded text-xs hover:opacity-80"
@@ -147,7 +147,7 @@ export default function DataManager({
                 }}
                 onClick={() => handleExportImage('full')}
               >
-                &#x1f4dc; 完整人物卡
+                📜 完整人物卡
               </button>
             </motion.div>
           )}

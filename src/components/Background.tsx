@@ -18,7 +18,7 @@ export default function Background({ background }: BackgroundProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.05 }}
     >
-      <h3 className="section-title">&#x1f4dc; 个人档案</h3>
+      <h3 className="section-title">📜 个人档案</h3>
 
       {/* 简介 */}
       <p className="text-sm italic mb-4" style={{ color: 'var(--text-secondary)' }}>
@@ -44,7 +44,7 @@ export default function Background({ background }: BackgroundProps) {
       {/* 教育经历时间线 */}
       <div className="mb-4">
         <h4 className="text-xs font-mono mb-2" style={{ color: 'var(--accent)' }}>
-          &#x1f393; 教育经历
+          🎓 教育经历
         </h4>
         <div className="space-y-2">
           {background.education.map((item, i) => (
@@ -61,7 +61,7 @@ export default function Background({ background }: BackgroundProps) {
       {/* 工作经历时间线 */}
       <div className="mb-4">
         <h4 className="text-xs font-mono mb-2" style={{ color: 'var(--accent)' }}>
-          &#x1f4bc; 工作经历
+          💼 工作经历
         </h4>
         <div className="space-y-2">
           {background.career.map((item, i) => (
@@ -79,7 +79,7 @@ export default function Background({ background }: BackgroundProps) {
       {background.turningPoints.length > 0 && (
         <div className="mb-4">
           <h4 className="text-xs font-mono mb-2" style={{ color: 'var(--accent)' }}>
-            &#x2b50; 关键转折点
+            ⭐ 关键转折点
           </h4>
           <div className="space-y-2">
             {background.turningPoints.map((item, i) => (
@@ -99,7 +99,7 @@ export default function Background({ background }: BackgroundProps) {
         className="game-button text-xs mb-3"
         onClick={() => setShowAll(!showAll)}
       >
-        {showAll ? '&#x25b2; 收起' : '&#x25bc; 展开更多'}
+        {showAll ? '▲ 收起' : '▼ 展开更多'}
       </button>
 
       <AnimatePresence>
@@ -113,7 +113,7 @@ export default function Background({ background }: BackgroundProps) {
             {/* 喜好 */}
             <div>
               <h4 className="text-xs font-mono mb-1" style={{ color: 'var(--success)' }}>
-                &#x2764; 喜欢
+                ❤ 喜欢
               </h4>
               <div className="flex flex-wrap gap-1">
                 {background.likes.map((item, i) => (
@@ -127,7 +127,7 @@ export default function Background({ background }: BackgroundProps) {
             {/* 讨厌 */}
             <div>
               <h4 className="text-xs font-mono mb-1" style={{ color: 'var(--danger)' }}>
-                &#x1f494; 讨厌
+                💔 讨厌
               </h4>
               <div className="flex flex-wrap gap-1">
                 {background.dislikes.map((item, i) => (
@@ -141,7 +141,7 @@ export default function Background({ background }: BackgroundProps) {
             {/* 红线 */}
             <div>
               <h4 className="text-xs font-mono mb-1" style={{ color: 'var(--danger)' }}>
-                &#x1f6ab; 红线
+                🚫 红线
               </h4>
               <div className="flex flex-wrap gap-1">
                 {background.redLines.map((item, i) => (
