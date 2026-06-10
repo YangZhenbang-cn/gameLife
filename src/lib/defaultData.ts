@@ -41,8 +41,8 @@ export function exportProfileAsJSON(profile: ProfileData): void {
 
 export function parseProfileJSON(jsonString: string): ProfileData {
   const data = JSON.parse(jsonString);
-  if (!data.character || !data.attributes || !data.skills) {
-    throw new Error('无效的个人资料格式：缺少必要字段 (character / attributes / skills)');
+  if (!data.character?.basic || !data.attributes || !data.skills) {
+    throw new Error('无效的个人资料格式：缺少必要字段 (character.basic / attributes / skills)');
   }
   return data as ProfileData;
 }

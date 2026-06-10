@@ -1,92 +1,142 @@
 {
   "character": {
-    "nickname": "流浪剑客",
-    "title": "见习冒险者",
-    "level": 12,
-    "avatar": "/avatar.png",
-    "class": "战士 / 剑术初学者",
-    "guild": "拂晓旅团",
-    "bio": "来自北方冰雪之地的年轻冒险者，怀抱成为传说之剑的梦想踏上旅途。擅长近战格斗，对未知世界充满好奇。",
-    "experience": 3520,
-    "experienceToNextLevel": 5000,
-    "joinDate": "2024-01-15"
+    "basic": {
+      "realName": "张三",
+      "nickname": "法外狂徒",
+      "gender": "男",
+      "birthDate": "1995-08-15",
+      "birthPlace": "浙江省温州市",
+      "residence": "杭州市西湖区",
+      "occupation": "前端工程师",
+      "affiliation": "XX科技有限公司",
+      "height": 175,
+      "weight": 70,
+      "bloodType": "O",
+      "avatar": "/avatar.png",
+      "earthOL": {
+        "server": "中国区-华东",
+        "status": "在线活跃",
+        "vipLevel": 4
+      }
+    },
+    "title": "全栈魔法学徒",
+    "level": 23,
+    "experience": 3400,
+    "maxExperience": 5000
   },
-  "attributes": [
-    { "name": "力量", "icon": "💪", "value": 18, "max": 30, "description": "物理攻击力与负重能力，决定近战伤害输出" },
-    { "name": "敏捷", "icon": "🏃", "value": 14, "max": 30, "description": "移动速度、闪避率与暴击几率" },
-    { "name": "智力", "icon": "🧠", "value": 12, "max": 30, "description": "魔法攻击力、技能学习速度与解谜能力" },
-    { "name": "耐力", "icon": "🛡️", "value": 16, "max": 30, "description": "生命值上限、防御力与异常状态抗性" },
-    { "name": "魅力", "icon": "✨", "value": 10, "max": 30, "description": "NPC 好感度、交易折扣与队伍士气加成" },
-    { "name": "运气", "icon": "🍀", "value": 8, "max": 30, "description": "掉落率、暴击伤害倍率与随机事件触发" }
-  ],
-  "skills": [
-    {
-      "category": "战斗技艺",
-      "items": [
-        { "name": "横斩", "icon": "⚔️", "level": 3, "mastery": 75, "description": "基础剑技，对前方扇形区域内敌人造成伤害" },
-        { "name": "盾击", "icon": "🛡️", "level": 2, "mastery": 45, "description": "用盾牌猛击敌人，有几率造成眩晕效果" },
-        { "name": "旋风斩", "icon": "🌪️", "level": 1, "mastery": 20, "description": "旋转攻击周围所有敌人，消耗较多体力" }
-      ]
+  "attributes": {
+    "hexagram": {
+      "intelligence": 7,
+      "charisma": 6,
+      "strength": 5,
+      "endurance": 8,
+      "tactics": 7,
+      "creativity": 6
     },
-    {
-      "category": "生存技能",
-      "items": [
-        { "name": "急救术", "icon": "💊", "level": 4, "mastery": 88, "description": "使用绷带和草药进行紧急治疗，恢复少量生命值" },
-        { "name": "野外烹饪", "icon": "🍖", "level": 3, "mastery": 60, "description": "利用野外采集的食材制作料理，提供临时属性加成" },
-        { "name": "追踪术", "icon": "👣", "level": 2, "mastery": 40, "description": "识别并追踪生物留下的痕迹，提升狩猎效率" }
-      ]
-    },
-    {
-      "category": "社交能力",
-      "items": [
-        { "name": "交涉术", "icon": "💬", "level": 2, "mastery": 35, "description": "在对话中获得更多信息，有时能获得额外奖励" },
-        { "name": "威吓", "icon": "👊", "level": 1, "mastery": 15, "description": "通过气势压制对手，降低敌方士气" }
-      ]
-    }
-  ],
-  "achievements": [
-    { "id": "ach_001", "name": "初次启程", "icon": "🌟", "description": "完成第一个主线任务", "unlocked": true, "unlockDate": "2024-01-16" },
-    { "id": "ach_002", "name": "百战勇士", "icon": "⚔️", "description": "击败 100 个敌人", "unlocked": true, "unlockDate": "2024-02-10" },
-    { "id": "ach_003", "name": "宝藏猎人", "icon": "💎", "description": "发现 10 个隐藏宝箱", "unlocked": true, "unlockDate": "2024-03-05" },
-    { "id": "ach_004", "name": "社交达人", "icon": "🤝", "description": "与 5 个重要 NPC 建立友好关系", "unlocked": false },
-    { "id": "ach_005", "name": "锻造大师", "icon": "🔨", "description": "打造一件传说级装备", "unlocked": false },
-    { "id": "ach_006", "name": "迷宫征服者", "icon": "🏰", "description": "通关 3 座地下城", "unlocked": true, "unlockDate": "2024-04-20" },
-    { "id": "ach_007", "name": "药水收藏家", "icon": "🧪", "description": "收集全部 20 种药水配方", "unlocked": false },
-    { "id": "ach_008", "name": "极速传说", "icon": "⚡", "description": "在 30 秒内击败 Boss", "unlocked": false },
-    { "id": "ach_009", "name": "图书馆长", "icon": "📚", "description": "阅读 50 本书籍", "unlocked": true, "unlockDate": "2024-05-12" },
-    { "id": "ach_010", "name": "金币滚滚", "icon": "💰", "description": "累计获得 10000 金币", "unlocked": true, "unlockDate": "2024-05-28" }
-  ],
-  "quests": {
-    "main": [
-      { "id": "mq_001", "title": "第一章：觉醒之刻", "progress": 100, "deadline": "2024-02-01", "description": "在古老遗迹中苏醒，找到离开的方法" },
-      { "id": "mq_002", "title": "第二章：暗影逼近", "progress": 60, "deadline": "2024-06-30", "description": "调查王国边境出现的暗影生物，揭开背后的阴谋" },
-      { "id": "mq_003", "title": "第三章：龙之觉醒", "progress": 0, "deadline": "2024-12-31", "description": "前往龙眠山脉，寻找传说中的古龙" }
+    "custom": [
+      { "key": "hp", "label": "生命值", "value": 85, "max": 100, "desc": "整体健康评分" },
+      { "key": "sp", "label": "精力值", "value": 70, "max": 100, "desc": "每日可用精力" }
     ],
+    "health": {
+      "constitution": "易胖体质",
+      "medicalHistory": ["过敏性鼻炎"],
+      "allergies": ["花粉"]
+    }
+  },
+  "skills": {
+    "professional": [
+      { "name": "React", "level": 85, "icon": "⚛️", "description": "前端框架，组件化开发" },
+      { "name": "TypeScript", "level": 75, "icon": "📘", "description": "类型安全的 JavaScript 超集" }
+    ],
+    "life": [
+      { "name": "做饭", "level": 60, "icon": "🍳", "description": "家常菜烹饪，偶尔翻车" },
+      { "name": "驾驶", "level": 70, "icon": "🚗", "description": "机动车驾驶技能" }
+    ],
+    "interests": [
+      { "name": "摄影", "level": 40, "icon": "📷", "description": "街头摄影爱好者" },
+      { "name": "吉他", "level": 30, "icon": "🎸", "description": "民谣吉他入门中" }
+    ],
+    "passive": ["熬夜不困", "路痴", "选择性失聪"]
+  },
+  "background": {
+    "summary": "一个在代码与生活间反复横跳的普通地球OL玩家。",
+    "education": [
+      { "time": "2014-2018", "event": "XX大学 计算机科学" }
+    ],
+    "career": [
+      { "time": "2018-至今", "event": "前端开发工程师" }
+    ],
+    "turningPoints": [
+      { "time": "2020", "event": "第一次独立负责项目" }
+    ],
+    "personality": "内向沉稳，偶尔话痨",
+    "coreValues": "自由与创造",
+    "lifeGoals": "35岁前实现远程工作自由",
+    "likes": ["科幻电影", "机械键盘"],
+    "dislikes": ["开会", "闷热天气"],
+    "redLines": ["欺骗", "不尊重个人时间"],
+    "catchphrase": "啊这...",
+    "iconicItem": "降噪耳机",
+    "blackHistory": "大学挂过科"
+  },
+  "relationships": {
+    "family": [
+      { "name": "父亲", "role": "爸爸", "affection": 9 },
+      { "name": "母亲", "role": "妈妈", "affection": 9 }
+    ],
+    "closeFriends": [
+      { "name": "李四", "affection": 8 },
+      { "name": "王五", "affection": 7 }
+    ],
+    "enemies": [],
+    "crush": { "name": "赵六", "affection": 6 }
+  },
+  "achievements": [
+    { "id": "ach_001", "name": "985毕业生", "icon": "🎓", "description": "毕业于985高校", "unlocked": true, "unlockDate": "2018-06-30" },
+    { "id": "ach_002", "name": "职场新人", "icon": "💼", "description": "入职第一份工作", "unlocked": true, "unlockDate": "2018-07-15" },
+    { "id": "ach_003", "name": "代码贡献者", "icon": "💻", "description": "累计提交1000次代码", "unlocked": true, "unlockDate": "2021-03-20" },
+    { "id": "ach_004", "name": "开源贡献者", "icon": "🌟", "description": "首个开源项目获得100星", "unlocked": false },
+    { "id": "ach_005", "name": "全栈工程师", "icon": "⚔️", "description": "独立完成全栈项目", "unlocked": false }
+  ],
+  "tasks": {
+    "main": { "title": "30岁前年薪50万", "progress": 30, "deadline": "2028-12-31" },
     "side": [
-      { "id": "sq_001", "title": "药草采集", "description": "为村庄药师收集 5 株月光草", "completed": true },
-      { "id": "sq_002", "title": "护送商队", "description": "护送商队安全通过山贼出没的山道", "completed": false },
-      { "id": "sq_003", "title": "图书馆的秘密", "description": "在王都大图书馆找到失落的历史手稿", "completed": false },
-      { "id": "sq_004", "title": "钓鱼大赛", "description": "参加一年一度的钓鱼大赛并取得名次", "completed": false },
-      { "id": "sq_005", "title": "锻造委托", "description": "为铁匠铺收集稀有矿石 3 块", "completed": true }
+      { "title": "看完100部电影", "done": false },
+      { "title": "读完10本技术书", "done": true }
+    ],
+    "daily": [
+      { "title": "阅读30分钟", "done": true },
+      { "title": "运动30分钟", "done": false },
+      { "title": "学习英语30分钟", "done": false }
     ]
   },
+  "assets": {
+    "gold": 250000,
+    "fixedAssets": ["一套公寓", "特斯拉Model 3"],
+    "debt": 500000,
+    "freeTime": "3小时/天"
+  },
+  "schedule": {
+    "wakeUp": "07:30",
+    "sleep": "00:00",
+    "workHours": "09:00-18:00",
+    "lunchBreak": "12:00-13:00",
+    "weekend": "自然醒",
+    "commute": "地铁1号线",
+    "frequentPlaces": ["公司", "家", "健身房"],
+    "diet": "一日三餐，偏爱面食",
+    "entertainment": ["刷B站", "打游戏"]
+  },
   "systemMessages": [
-    "冒险者，前方的路还很长，但每一步都算数。",
-    "即使是最暗的夜晚，也挡不住黎明的到来。",
-    "你的剑已经比昨天更加锋利了，继续磨练吧！",
-    "累了就歇一歇，冒险不是百米冲刺，而是马拉松。",
-    "不要忘记检查背包，也许有你遗忘的宝物。",
-    "有人说过，真正的力量来自于保护重要之人的决心。",
-    "记得存档，冒险途中意外总是突如其来。",
-    "每一个伟大的冒险者，都曾经是个菜鸟。",
-    "今天的失败是明天胜利的垫脚石。",
-    "旅店里好像有新的悬赏任务，不妨去看看。",
-    "技能熟练度不会背叛努力的汗水。",
-    "在黑暗中，连一颗星星也能指引方向。"
+    "地球OL没有重启按钮，但你可以随时重写配置文件。",
+    "今天的主线任务推进了吗？",
+    "经验值不会背叛每一行代码。",
+    "记得存档，地球OL不提供自动保存。",
+    "你的技能等级又悄悄涨了一点！"
   ],
   "meta": {
-    "version": "1.0",
-    "lastModified": "2024-06-10T08:00:00Z",
+    "version": "2.0",
+    "lastModified": "2025-01-01T00:00:00Z",
     "theme": "pixel"
   }
 }

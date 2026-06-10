@@ -1,10 +1,10 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Attribute } from '@/lib/types';
+import { CustomAttribute } from '@/lib/types';
 
 interface AttributePanelProps {
-  attributes: Attribute[];
+  attributes: CustomAttribute[];
 }
 
 export default function AttributePanel({ attributes }: AttributePanelProps) {
@@ -15,26 +15,25 @@ export default function AttributePanel({ attributes }: AttributePanelProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      <h3 className="section-title">📊 属性面板</h3>
+      <h3 className="section-title">&#x1f4ca; 自定义属性</h3>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {attributes.map((attr, index) => {
           const percent = Math.min(Math.round((attr.value / attr.max) * 100), 100);
           return (
             <motion.div
-              key={attr.name}
+              key={attr.key}
               className="group relative"
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.3, delay: index * 0.08 }}
             >
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-lg">{attr.icon}</span>
                 <span
                   className="font-mono text-sm font-bold"
                   style={{ color: 'var(--text-primary)' }}
                 >
-                  {attr.name}
+                  {attr.label}
                 </span>
                 <span
                   className="font-mono text-xs ml-auto"
@@ -64,7 +63,7 @@ export default function AttributePanel({ attributes }: AttributePanelProps) {
                   color: 'var(--text-secondary)',
                 }}
               >
-                {attr.description}
+                {attr.desc}
               </div>
             </motion.div>
           );

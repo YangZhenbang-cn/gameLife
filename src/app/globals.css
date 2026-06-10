@@ -220,4 +220,32 @@ body {
     font-size: 0.75rem;
     border-radius: 4px;
   }
+
+  /* 标签页导航栏滚动条隐藏 */
+  .tab-nav-scroll {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .tab-nav-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* 心形图标脉冲动画 */
+  @keyframes heart-beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+  .heart-beat {
+    animation: heart-beat 0.6s ease-in-out;
+  }
+
+  /* 每日任务勾选闪光 */
+  @keyframes task-flash {
+    0% { box-shadow: 0 0 0 0 var(--success); }
+    50% { box-shadow: 0 0 8px 2px var(--success); }
+    100% { box-shadow: 0 0 0 0 var(--success); }
+  }
+  .task-flash {
+    animation: task-flash 0.5s ease-out;
+  }
 }
