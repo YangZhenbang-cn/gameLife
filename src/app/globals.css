@@ -1,0 +1,223 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import '../styles/themes.css';
+
+/* 默认主题（像素勇者） */
+:root {
+  --bg-primary: #fce18a;
+  --bg-secondary: #f5d06b;
+  --bg-card: #fff8dc;
+  --text-primary: #2e2e2e;
+  --text-secondary: #5c5c5c;
+  --accent: #e76e55;
+  --border-color: #333333;
+  --border-glow: #e76e55;
+  --progress-fill: #e76e55;
+  --progress-bg: #d4c5a0;
+  --success: #4caf50;
+  --warning: #ff9800;
+  --danger: #f44336;
+  --font-mono: "Press Start 2P", monospace;
+  --font-display: "Press Start 2P", monospace;
+  --font-body: "Press Start 2P", monospace;
+  --border-style: 4px solid var(--border-color);
+  --card-shadow: 6px 6px 0px #333333;
+  --panel-radius: 0px;
+}
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Fira+Code:wght@400;500&family=Press+Start+2P&display=swap');
+
+/* 基础样式 */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  min-height: 100vh;
+}
+
+/* CRT 扫描线效果（终端主题） */
+[data-theme="terminal"] body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15) 0px,
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+  z-index: 9999;
+  animation: scanline 8s linear infinite;
+}
+
+[data-theme="terminal"] body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* 像素主题装饰 */
+[data-theme="pixel"] .pixel-border {
+  border: 4px solid var(--border-color);
+  box-shadow: 6px 6px 0px #333333;
+}
+
+/* 星界主题发光 */
+[data-theme="arcane"] .arcane-glow {
+  box-shadow:
+    0 0 15px rgba(192, 132, 252, 0.3),
+    inset 0 0 15px rgba(192, 132, 252, 0.05);
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 4px;
+}
+
+/* 通用组件样式 */
+@layer components {
+  .game-panel {
+    background-color: var(--bg-card);
+    border: var(--border-style);
+    box-shadow: var(--card-shadow);
+    border-radius: var(--panel-radius);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+
+  .game-panel:hover {
+    box-shadow: 0 0 20px var(--border-glow);
+  }
+
+  .game-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    background-color: var(--bg-card);
+    border: var(--border-style);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: var(--card-shadow);
+    border-radius: var(--panel-radius);
+  }
+
+  .game-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px var(--border-glow);
+  }
+
+  .game-button:active {
+    transform: translateY(0);
+  }
+
+  .progress-bar {
+    width: 100%;
+    height: 12px;
+    background-color: var(--progress-bg);
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background-color: var(--progress-fill);
+    border-radius: 6px;
+    transition: width 0.6s ease;
+  }
+
+  .xp-bar {
+    width: 100%;
+    height: 16px;
+    background-color: var(--progress-bg);
+    border: 2px solid var(--border-color);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .xp-bar-fill {
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      var(--progress-fill),
+      var(--accent)
+    );
+    transition: width 1s ease;
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    color: var(--accent);
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background-color: var(--accent);
+    color: var(--bg-primary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    border-radius: 4px;
+  }
+
+  .level-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    background-color: var(--accent);
+    color: var(--bg-primary);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    border-radius: 4px;
+  }
+}

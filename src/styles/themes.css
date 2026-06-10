@@ -1,0 +1,73 @@
+/* ============================================
+   游戏化个人状态面板 — 主题 CSS 变量定义
+   通过 [data-theme="..."] 选择器切换主题
+   ============================================ */
+
+/* 像素勇者 - 默认主题 */
+[data-theme="pixel"] {
+  --bg-primary: #fce18a;
+  --bg-secondary: #f5d06b;
+  --bg-card: #fff8dc;
+  --text-primary: #2e2e2e;
+  --text-secondary: #5c5c5c;
+  --accent: #e76e55;
+  --border-color: #333333;
+  --border-glow: #e76e55;
+  --progress-fill: #e76e55;
+  --progress-bg: #d4c5a0;
+  --success: #4caf50;
+  --warning: #ff9800;
+  --danger: #f44336;
+  --font-mono: "Press Start 2P", monospace;
+  --font-display: "Press Start 2P", monospace;
+  --font-body: "Press Start 2P", monospace;
+  --border-style: 4px solid var(--border-color);
+  --card-shadow: 6px 6px 0px #333333;
+  --panel-radius: 0px;
+}
+
+/* 终端黑客 */
+[data-theme="terminal"] {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #0d1117;
+  --bg-card: #111922;
+  --text-primary: #00ff41;
+  --text-secondary: #00cc33;
+  --accent: #00ff41;
+  --border-color: #00ff41;
+  --border-glow: #00ff41;
+  --progress-fill: #00ff41;
+  --progress-bg: #1a2a1a;
+  --success: #00ff41;
+  --warning: #ffcc00;
+  --danger: #ff4444;
+  --font-mono: "Fira Code", "Courier New", monospace;
+  --font-display: "Fira Code", monospace;
+  --font-body: "Consolas", monospace;
+  --border-style: 1px solid var(--border-color);
+  --card-shadow: 0 0 15px rgba(0, 255, 65, 0.15);
+  --panel-radius: 4px;
+}
+
+/* 星界魔法 */
+[data-theme="arcane"] {
+  --bg-primary: #1a1025;
+  --bg-secondary: #231535;
+  --bg-card: #2a1a3e;
+  --text-primary: #e0d7ff;
+  --text-secondary: #b8a9d4;
+  --accent: #c084fc;
+  --border-color: #7c3aed;
+  --border-glow: #c084fc;
+  --progress-fill: #a78bfa;
+  --progress-bg: #2d1b4e;
+  --success: #6ee7b7;
+  --warning: #fbbf24;
+  --danger: #f87171;
+  --font-mono: "Cinzel", serif;
+  --font-display: "Cinzel", serif;
+  --font-body: "Georgia", serif;
+  --border-style: 2px solid var(--border-color);
+  --card-shadow: 0 0 25px rgba(192, 132, 252, 0.2);
+  --panel-radius: 12px;
+}
