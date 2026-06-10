@@ -2,6 +2,8 @@
 
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import EditModal from '@/components/EditModal';
+import EditToggle from '@/components/EditToggle';
 import BasicInfoCard from '@/components/BasicInfo';
 import Background from '@/components/Background';
 import HexagramChart from '@/components/HexagramChart';
@@ -65,6 +67,21 @@ export default function Home() {
     }));
   }, []);
 
+  /** 通用更新函数：深路径设置 */
+  const updateProfile = useCallback((path: string[], value: unknown) => {
+    setProfile((prev) => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const next = JSON.parse(JSON.stringify(prev)) as Record<string, any>;
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      let node: Record<string, any> = next;
+      for (let i = 0; i < path.length - 1; i++) {
+        node = node[path[i]] as Record<string, any>;
+      }
+      node[path[path.length - 1]] = value;
+      return next as ProfileData;
+    });
+  }, []);
+
   return (
     <main className="min-h-screen" style={{ backgroundColor: 'var(--bg-primary)' }}>
       {/* 背景装饰 */}
@@ -92,6 +109,7 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-3 flex-wrap">
+            <EditToggle />
             <DataManager
               profile={profile}
               onImport={handleImport}
@@ -158,117 +176,120 @@ export default function Home() {
       </nav>
 
       {/* 主内容区 */}
-      <div id="main-content" className="relative z-10 max-w-7xl mx-auto px-4 py-6 space-y-6">
-        <AnimatePresence mode="wait">
-          {/* 标签1：档案 */}
-          {activeTab === 'profile' && (
-            <motion.div
-              key="profile"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25 }}
-              className="space-y-6"
-            >
-              <BasicInfoCard
-                basic={profile.character.basic}
-                title={profile.character.title}
-                level={profile.character.level}
-                experience={profile.character.experience}
-                maxExperience={profile.character.maxExperience}
-              />
-              <Background background={profile.background} />
-            </motion.div>
-          )}
+        <div id="main-content" className="relative z-10 max-w-7xl mx-auto px-4 py-6 space-y-6">
+          <AnimatePresence mode="wait">
+            {/* 标签1：档案 */}
+            {activeTab === 'profile' && (
+              <motion.div
+                key="profile"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.25 }}
+                className="space-y-6"
+              >
+                <BasicInfoCard
+                  basic={profile.character.basic}
+                  title={profile.character.title}
+                  level={profile.character.level}
+                  experience={profile.character.experience}
+                  maxExperience={profile.character.maxExperience}
+                  onUpdate={updateProfile}
+                />
+                <Background background={profile.background} onUpdate={updateProfile} />
+              </motion.div>
+            )}
 
-          {/* 标签2：属性 */}
-          {activeTab === 'attributes' && (
-            <motion.div
-              key="attributes"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25 }}
-              className="space-y-6"
-            >
-              <HexagramChart hexagram={profile.attributes.hexagram} />
-              <AttributePanel attributes={profile.attributes.custom} />
-              <HealthCard health={profile.attributes.health} />
-            </motion.div>
-          )}
+            {/* 标签2：属性 */}
+            {activeTab === 'attributes' && (
+              <motion.div
+                key="attributes"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.25 }}
+                className="space-y-6"
+              >
+                <HexagramChart hexagram={profile.attributes.hexagram} />
+                <AttributePanel attributes={profile.attributes.custom} />
+                <HealthCard health={profile.attributes.health} onUpdate={updateProfile} />
+              </motion.div>
+            )}
 
-          {/* 标签3：技能 */}
-          {activeTab === 'skills' && (
-            <motion.div
-              key="skills"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25 }}
-            >
-              <SkillList skills={profile.skills} />
-            </motion.div>
-          )}
+            {/* 标签3：技能 */}
+            {activeTab === 'skills' && (
+              <motion.div
+                key="skills"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.25 }}
+              >
+                <SkillList skills={profile.skills} onUpdate={updateProfile} />
+              </motion.div>
+            )}
 
-          {/* 标签4：关系 */}
-          {activeTab === 'relations' && (
-            <motion.div
-              key="relations"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25 }}
-            >
-              <RelationshipList relationships={profile.relationships} />
-            </motion.div>
-          )}
+            {/* 标签4：关系 */}
+            {activeTab === 'relations' && (
+              <motion.div
+                key="relations"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.25 }}
+              >
+                <RelationshipList relationships={profile.relationships} onUpdate={updateProfile} />
+              </motion.div>
+            )}
 
-          {/* 标签5：成就与任务 */}
-          {activeTab === 'quests' && (
-            <motion.div
-              key="quests"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25 }}
-              className="space-y-6"
-            >
-              <AchievementWall achievements={profile.achievements} />
-              <TaskPanel
-                tasks={profile.tasks}
-                onSideTaskToggle={handleSideTaskToggle}
-                onDailyTaskToggle={handleDailyTaskToggle}
-              />
-            </motion.div>
-          )}
+            {/* 标签5：成就与任务 */}
+            {activeTab === 'quests' && (
+              <motion.div
+                key="quests"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.25 }}
+                className="space-y-6"
+              >
+                <AchievementWall achievements={profile.achievements} onUpdate={updateProfile} />
+                <TaskPanel
+                  tasks={profile.tasks}
+                  onSideTaskToggle={handleSideTaskToggle}
+                  onDailyTaskToggle={handleDailyTaskToggle}
+                  onUpdate={updateProfile}
+                />
+              </motion.div>
+            )}
 
-          {/* 标签6：资产与日程 */}
-          {activeTab === 'assets' && (
-            <motion.div
-              key="assets"
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.25 }}
-              className="space-y-6"
-            >
-              <AssetsCard assets={profile.assets} />
-              <ScheduleTable schedule={profile.schedule} />
-            </motion.div>
-          )}
-        </AnimatePresence>
+            {/* 标签6：资产与日程 */}
+            {activeTab === 'assets' && (
+              <motion.div
+                key="assets"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.25 }}
+                className="space-y-6"
+              >
+                <AssetsCard assets={profile.assets} onUpdate={updateProfile} />
+                <ScheduleTable schedule={profile.schedule} onUpdate={updateProfile} />
+              </motion.div>
+            )}
+          </AnimatePresence>
 
-        {/* 系统旁白 — 始终显示 */}
-        <section>
-          <SystemMessage messages={profile.systemMessages} />
-        </section>
+          {/* 系统旁白 */}
+          <section>
+            <SystemMessage messages={profile.systemMessages} />
+          </section>
 
-        {/* 页脚 */}
-        <footer className="text-center py-8 opacity-50" style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>
-          <p>地球OL · 个人人物卡 v{profile.meta.version} — 你的真实世界角色档案</p>
-          <p className="mt-1">数据仅存储于本地，无任何网络上传 — {profile.meta.lastModified.slice(0, 10)}</p>
-        </footer>
-      </div>
+          {/* 页脚 */}
+          <footer className="text-center py-8 opacity-50" style={{ color: 'var(--text-secondary)', fontSize: '0.75rem' }}>
+            <p>地球OL · 个人人物卡 v{profile.meta.version} — 你的真实世界角色档案</p>
+            <p className="mt-1">数据仅存储于本地，无任何网络上传 — {profile.meta.lastModified.slice(0, 10)}</p>
+          </footer>
+        </div>
+    <EditModal />
     </main>
   );
 }

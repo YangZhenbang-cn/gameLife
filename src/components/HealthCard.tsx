@@ -2,82 +2,50 @@
 
 import { motion } from 'framer-motion';
 import { HealthInfo } from '@/lib/types';
+import { useEditContext } from '@/context/EditContext';
 
-interface HealthCardProps {
+interface Props {
   health: HealthInfo;
+  onUpdate?: (path: string[], value: unknown) => void;
 }
 
-export default function HealthCard({ health }: HealthCardProps) {
-  return (
-    <motion.div
-      className="game-panel"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.15 }}
-    >
-      <h3 className="section-title">❤ 健康卡</h3>
+export default function HealthCard({ health, onUpdate }: Props) {
+  const { isEditing, openModal } = useEditContext();
 
+  const mk = (path: string[], label: string, value: string) => ({
+    className: `editable-area ${isEditing ? 'editing' : ''}`,
+    onClick: isEditing && onUpdate ? () => openModal({ type: 'text', label, value, onSave: (v: string) => onUpdate(path, v) }) : undefined,
+  });
+
+  const mkTags = (path: string[], label: string, value: string[]) => ({
+    className: `editable-area ${isEditing ? 'editing' : ''}`,
+    onClick: isEditing && onUpdate ? () => openModal({ type: 'tags', label, value, onSave: (v: string[]) => onUpdate(path, v) }) : undefined,
+  });
+
+  return (
+    <motion.div className="game-panel" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+      <h3 className="section-title">🏥 健康档案</h3>
       <div className="space-y-3">
-        {/* 体质 */}
-        <div className="flex items-center gap-2">
-          <span className="text-xs font-bold" style={{ color: 'var(--accent)' }}>
-            体质类型：
-          </span>
+        <div {...mk(['attributes', 'health', 'constitution'], '体质', health.constitution)}>
+          <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>体质：</span>
           <span className="tag text-xs">{health.constitution}</span>
         </div>
 
-        {/* 病史 */}
-        <div>
-          <span className="text-xs font-bold block mb-1" style={{ color: 'var(--accent)' }}>
-            既往病史：
-          </span>
+        <div {...mkTags(['attributes', 'health', 'medicalHistory'], '病史', health.medicalHistory)}>
+          <span className="text-xs block mb-1" style={{ color: 'var(--text-secondary)' }}>病史：</span>
           <div className="flex flex-wrap gap-1">
-            {health.medicalHistory.length > 0 ? (
-              health.medicalHistory.map((item, i) => (
-                <span
-                  key={i}
-                  className="tag text-xs"
-                  style={{ backgroundColor: 'var(--warning)', color: 'var(--bg-primary)' }}
-                >
-                  {item}
-                </span>
-              ))
-            ) : (
-              <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>
-                无记录
-              </span>
-            )}
+            {health.medicalHistory.map((h, i) => (
+              <span key={i} className="tag text-xs" style={{ backgroundColor: 'var(--warning)' }}>{h}</span>
+            ))}
           </div>
         </div>
 
-        {/* 过敏源（警示色） */}
-        <div>
-          <span className="text-xs font-bold block mb-1" style={{ color: 'var(--accent)' }}>
-            过敏源：
-          </span>
+        <div {...mkTags(['attributes', 'health', 'allergies'], '过敏源', health.allergies)}>
+          <span className="text-xs block mb-1" style={{ color: 'var(--text-secondary)' }}>过敏源：</span>
           <div className="flex flex-wrap gap-1">
-            {health.allergies.length > 0 ? (
-              health.allergies.map((item, i) => (
-                <motion.span
-                  key={i}
-                  className="tag text-xs"
-                  style={{
-                    backgroundColor: 'var(--danger)',
-                    color: 'var(--bg-primary)',
-                    border: '2px solid var(--danger)',
-                  }}
-                  initial={{ scale: 0 }}
-                  animate={{ scale: 1 }}
-                  transition={{ delay: i * 0.1, type: 'spring' }}
-                >
-                  ⚠ {item}
-                </motion.span>
-              ))
-            ) : (
-              <span className="text-xs" style={{ color: 'var(--success)' }}>
-                ✔ 无已知过敏源
-              </span>
-            )}
+            {health.allergies.map((a, i) => (
+              <span key={i} className="tag text-xs" style={{ backgroundColor: 'var(--danger)' }}>{a}</span>
+            ))}
           </div>
         </div>
       </div>

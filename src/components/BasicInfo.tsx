@@ -1,156 +1,104 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { BasicInfo } from '@/lib/types';
+import { BasicInfo, ProfileData } from '@/lib/types';
+import { useEditContext } from '@/context/EditContext';
 
-interface BasicInfoProps {
+interface Props {
   basic: BasicInfo;
   title: string;
   level: number;
   experience: number;
   maxExperience: number;
+  onUpdate?: (path: string[], value: unknown) => void;
 }
 
-export default function BasicInfoCard({
-  basic,
-  title,
-  level,
-  experience,
-  maxExperience,
-}: BasicInfoProps) {
-  const expPercent = Math.min(Math.round((experience / maxExperience) * 100), 100);
-  const vipStars = '★'.repeat(basic.earthOL.vipLevel) + '☆'.repeat(Math.max(0, 7 - basic.earthOL.vipLevel));
+export default function BasicInfoCard({ basic, title, level, experience, maxExperience, onUpdate }: Props) {
+  const { isEditing, openModal } = useEditContext();
+
+  const mk = (path: string[], label: string, value: string) => ({
+    className: `editable-area ${isEditing ? 'editing' : ''}`,
+    onClick: isEditing && onUpdate ? () => openModal({ type: 'text', label, value, onSave: (v: string) => onUpdate(path, v) }) : undefined,
+  });
+
+  const xpPct = Math.min(Math.round((experience / maxExperience) * 100), 100);
 
   return (
-    <motion.div
-      id="character-card-export"
-      className="game-panel relative overflow-hidden"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="flex flex-col md:flex-row items-center gap-6">
-        {/* 头像 */}
-        <div className="relative flex-shrink-0">
-          <div
-            className="w-24 h-24 md:w-32 md:h-32 border-4 flex items-center justify-center text-4xl"
-            style={{
-              borderColor: 'var(--border-glow)',
-              backgroundColor: 'var(--bg-secondary)',
-              boxShadow: '0 0 20px var(--border-glow)',
-            }}
-          >
-            {basic.avatar ? (
-              <img
-                src={basic.avatar}
-                alt={basic.nickname}
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
-              />
-            ) : (
-              <span>🧑‍💻</span>
-            )}
+    <motion.div className="game-panel" id="character-card-export" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+      <div className="flex flex-col sm:flex-row gap-6">
+        {/* 头像区 */}
+        <div className="flex-shrink-0 text-center">
+          <div className="w-24 h-24 mx-auto rounded-full border-4 overflow-hidden" style={{ borderColor: 'var(--accent)' }}>
+            <div className="w-full h-full flex items-center justify-center text-4xl" style={{ backgroundColor: 'var(--bg-secondary)' }}>🌍</div>
           </div>
-          <div
-            className="absolute -bottom-2 -right-2 level-badge text-sm font-bold px-3 py-1"
-            style={{ border: '2px solid var(--bg-primary)' }}
-          >
-            Lv.{level}
+          <div className="mt-2">
+            <span className="tag text-xs">{basic.earthOL.status}</span>
           </div>
         </div>
 
-        {/* 角色信息 */}
-        <div className="flex-1 space-y-2 min-w-0">
-          <div className="flex flex-wrap items-center gap-3">
-            <h2 className="font-display text-xl md:text-2xl" style={{ color: 'var(--accent)' }}>
-              {basic.realName}
-            </h2>
-            <span className="tag">{title}</span>
-            <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
-              @{basic.nickname}
+        {/* 信息网格 */}
+        <div className="flex-1 space-y-3">
+          <div className="flex items-start justify-between flex-wrap gap-2">
+            <div>
+              <h2 {...mk(['character', 'basic', 'realName'], '姓名', basic.realName)} style={{ color: 'var(--text-primary)', fontSize: '1.5rem', fontWeight: 'bold' }}>
+                {basic.realName}
+              </h2>
+              <span {...mk(['character', 'basic', 'nickname'], '昵称', basic.nickname)} className="text-sm font-mono" style={{ color: 'var(--accent)' }}>
+                「{basic.nickname}」
+              </span>
+            </div>
+            <span {...mk(['character', 'title'], '称号', title)} className="level-badge text-sm">
+              {title}
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs" style={{ color: 'var(--text-secondary)' }}>
-            <p>
-              <span className="font-bold" style={{ color: 'var(--accent)' }}>性别：</span>
-              {basic.gender}
-            </p>
-            <p>
-              <span className="font-bold" style={{ color: 'var(--accent)' }}>生日：</span>
-              {basic.birthDate}
-            </p>
-            <p>
-              <span className="font-bold" style={{ color: 'var(--accent)' }}>籍贯：</span>
-              {basic.birthPlace}
-            </p>
-            <p>
-              <span className="font-bold" style={{ color: 'var(--accent)' }}>现居：</span>
-              {basic.residence}
-            </p>
-            <p>
-              <span className="font-bold" style={{ color: 'var(--accent)' }}>职业：</span>
-              {basic.occupation}
-            </p>
-            <p>
-              <span className="font-bold" style={{ color: 'var(--accent)' }}>单位：</span>
-              {basic.affiliation}
-            </p>
-            <p>
-              <span className="font-bold" style={{ color: 'var(--accent)' }}>身高：</span>
-              {basic.height}cm
-            </p>
-            <p>
-              <span className="font-bold" style={{ color: 'var(--accent)' }}>体重：</span>
-              {basic.weight}kg
-            </p>
-            <p>
-              <span className="font-bold" style={{ color: 'var(--accent)' }}>血型：</span>
-              {basic.bloodType}型
-            </p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-2 text-xs font-mono">
+            {[
+              ['性别', basic.gender],
+              ['生日', basic.birthDate],
+              ['出生地', basic.birthPlace],
+              ['现居', basic.residence],
+              ['身高', `${basic.height}cm`],
+              ['体重', `${basic.weight}kg`],
+              ['血型', basic.bloodType],
+            ].map(([label, val]) => (
+              <div key={label}>
+                <span style={{ color: 'var(--text-secondary)' }}>{label}：</span>
+                <span style={{ color: 'var(--text-primary)' }}>{val}</span>
+              </div>
+            ))}
           </div>
 
-          {/* 地球OL 信息 */}
-          <div
-            className="p-2 rounded flex flex-wrap items-center gap-3 text-xs"
-            style={{
-              backgroundColor: 'var(--bg-secondary)',
-              border: '1px solid var(--border-color)',
-            }}
-          >
-            <span style={{ color: 'var(--accent)' }}>🌐 地球OL</span>
-            <span style={{ color: 'var(--text-primary)' }}>{basic.earthOL.server}</span>
-            <span
-              className="px-2 py-0.5 rounded"
-              style={{
-                backgroundColor: basic.earthOL.status === '在线活跃' ? 'var(--success)' : 'var(--warning)',
-                color: 'var(--bg-primary)',
-              }}
-            >
-              {basic.earthOL.status}
+          <div className="grid grid-cols-2 gap-x-4 text-xs font-mono">
+            <div {...mk(['character', 'basic', 'occupation'], '职业', basic.occupation)}>
+              <span style={{ color: 'var(--text-secondary)' }}>职业：</span>
+              <span style={{ color: 'var(--accent)' }}>{basic.occupation}</span>
+            </div>
+            <div {...mk(['character', 'basic', 'affiliation'], '单位', basic.affiliation)}>
+              <span style={{ color: 'var(--text-secondary)' }}>单位：</span>
+              <span style={{ color: 'var(--text-primary)' }}>{basic.affiliation}</span>
+            </div>
+          </div>
+
+          {/* 地球OL */}
+          <div className="flex items-center gap-3 text-xs font-mono pt-2" style={{ borderTop: '1px dashed var(--border-color)' }}>
+            <span className="tag" style={{ backgroundColor: 'var(--accent)', color: 'var(--bg-primary)' }}>
+              🌐 {basic.earthOL.server}
             </span>
-            <span style={{ color: 'var(--accent)', letterSpacing: '2px' }}>
-              VIP {vipStars}
+            <span style={{ color: 'var(--text-secondary)' }}>
+              VIP {basic.earthOL.vipLevel}
+              {'★'.repeat(basic.earthOL.vipLevel)}{'☆'.repeat(7 - basic.earthOL.vipLevel)}
             </span>
           </div>
 
           {/* 经验条 */}
-          <div className="space-y-1">
-            <div className="flex justify-between text-xs font-mono">
-              <span style={{ color: 'var(--text-secondary)' }}>EXP</span>
-              <span style={{ color: 'var(--accent)' }}>
-                {experience} / {maxExperience}
-              </span>
+          <div className="mt-2">
+            <div className="flex justify-between text-xs mb-1 font-mono">
+              <span style={{ color: 'var(--text-secondary)' }}>Lv.{level}</span>
+              <span style={{ color: 'var(--accent)' }}>{experience} / {maxExperience}</span>
             </div>
-            <div className="xp-bar">
-              <motion.div
-                className="xp-bar-fill"
-                initial={{ width: 0 }}
-                animate={{ width: `${expPercent}%` }}
-                transition={{ duration: 1.2, ease: 'easeOut' }}
-              />
+            <div className="progress-bar" style={{ height: '10px' }}>
+              <motion.div className="progress-bar-fill" initial={{ width: 0 }} animate={{ width: `${xpPct}%` }} transition={{ duration: 1.2, ease: 'easeOut' }} />
             </div>
           </div>
         </div>

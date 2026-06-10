@@ -248,4 +248,80 @@ body {
   .task-flash {
     animation: task-flash 0.5s ease-out;
   }
+
+  /* 编辑模式样式 */
+  .editable-area {
+    transition: all 0.2s ease;
+    cursor: default;
+    border-radius: 4px;
+    padding: 2px 4px;
+    margin: -2px -4px;
+  }
+
+  .editable-area.editing {
+    cursor: pointer;
+  }
+
+  .editable-area.editing:hover {
+    background-color: color-mix(in srgb, var(--warning) 20%, transparent);
+    outline: 1px dashed var(--warning);
+    outline-offset: 1px;
+  }
+
+  /* 编辑弹窗输入框 */
+  .edit-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    border-radius: 4px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .edit-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 6px var(--border-glow);
+  }
+
+  textarea.edit-input {
+    resize: vertical;
+    min-height: 60px;
+  }
+
+  input[type="number"].edit-input {
+    -moz-appearance: textfield;
+  }
+  input[type="number"].edit-input::-webkit-outer-spin-button,
+  input[type="number"].edit-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* 编辑弹窗内的排序/删除小按钮 */
+  .edit-arrow-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+    font-size: 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .edit-arrow-btn:hover {
+    background-color: var(--bg-card);
+    color: var(--accent);
+    border-color: var(--accent);
+  }
 }

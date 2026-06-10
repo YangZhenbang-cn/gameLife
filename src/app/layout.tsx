@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { ThemeProvider } from '../lib/ThemeProvider';
+import { EditProvider } from '../context/EditContext';
 
 export const metadata: Metadata = {
   title: 'Game Life - 游戏化个人状态面板',
@@ -18,7 +19,9 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body suppressHydrationWarning>
-        <ThemeProvider>{children}</ThemeProvider>
+        <EditProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </EditProvider>
       </body>
     </html>
   );

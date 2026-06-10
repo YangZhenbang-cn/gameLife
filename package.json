@@ -4,7 +4,7 @@
   "private": true,
   "description": "RPG风格游戏化个人状态面板 - 多主题·本地优先·导入导出",
   "scripts": {
-    "dev": "next dev -H 0.0.0.0",
+    "dev": "next dev -H ::",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

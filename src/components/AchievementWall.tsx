@@ -3,147 +3,91 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Achievement } from '@/lib/types';
+import { useEditContext } from '@/context/EditContext';
 
-interface AchievementWallProps {
+interface Props {
   achievements: Achievement[];
+  onUpdate?: (path: string[], value: unknown) => void;
 }
 
-export default function AchievementWall({ achievements }: AchievementWallProps) {
-  const [selectedAchievement, setSelectedAchievement] = useState<Achievement | null>(null);
-
-  const unlocked = achievements.filter((a) => a.unlocked);
-  const locked = achievements.filter((a) => !a.unlocked);
+export default function AchievementWall({ achievements, onUpdate }: Props) {
+  const { isEditing, openModal } = useEditContext();
+  const [selected, setSelected] = useState<Achievement | null>(null);
 
   return (
-    <motion.div
-      className="game-panel"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, delay: 0.3 }}
-    >
+    <motion.div className="game-panel" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
       <h3 className="section-title">🏆 成就陈列室</h3>
-
-      <div className="mb-3 text-xs" style={{ color: 'var(--text-secondary)' }}>
-        已解锁 {unlocked.length} / {achievements.length}
-      </div>
-
-      {/* 已解锁成就 */}
-      <div className="mb-4">
-        <h4 className="text-xs font-mono mb-2" style={{ color: 'var(--success)' }}>
-          ✦ 已解锁
-        </h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-          {unlocked.map((ach) => (
-            <motion.button
-              key={ach.id}
-              className="p-2 text-center cursor-pointer rounded"
-              style={{
-                backgroundColor: 'var(--bg-secondary)',
-                border: `1px solid var(--border-glow)`,
-              }}
-              onClick={() => setSelectedAchievement(ach)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="text-2xl mb-1">{ach.icon}</div>
-              <div className="text-xs font-mono" style={{ color: 'var(--text-primary)' }}>
-                {ach.name}
-              </div>
-            </motion.button>
-          ))}
-        </div>
-      </div>
-
-      {/* 未解锁成就 */}
-      <div>
-        <h4 className="text-xs font-mono mb-2" style={{ color: 'var(--text-secondary)' }}>
-          🔒 未解锁
-        </h4>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-          {locked.map((ach) => (
-            <motion.button
-              key={ach.id}
-              className="p-2 text-center cursor-pointer rounded opacity-50"
-              style={{
-                backgroundColor: 'var(--bg-secondary)',
-                border: `1px dashed var(--border-color)`,
-              }}
-              onClick={() => setSelectedAchievement(ach)}
-              whileHover={{ scale: 1.05, opacity: 0.7 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="text-2xl mb-1" style={{ filter: 'grayscale(100%)' }}>
-                {ach.icon}
-              </div>
-              <div className="text-xs font-mono" style={{ color: 'var(--text-secondary)' }}>
-                ???
-              </div>
-            </motion.button>
-          ))}
-        </div>
-      </div>
-
-      {/* 成就详情弹窗 */}
-      <AnimatePresence>
-        {selectedAchievement && (
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+        {achievements.map((ach, i) => (
           <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setSelectedAchievement(null)}
-            style={{ backgroundColor: 'rgba(0,0,0,0.6)' }}
+            key={ach.id}
+            className="p-3 rounded text-center cursor-pointer"
+            style={{
+              backgroundColor: ach.unlocked ? 'var(--bg-secondary)' : 'var(--bg-primary)',
+              border: `1px solid ${ach.unlocked ? 'var(--accent)' : 'var(--border-color)'}`,
+              opacity: ach.unlocked ? 1 : 0.5,
+            }}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: ach.unlocked ? 1 : 0.5, scale: 1 }}
+            transition={{ delay: i * 0.05 }}
+            onClick={() => setSelected(ach)}
+            whileHover={{ scale: 1.03 }}
           >
-            <motion.div
-              className="p-6 rounded max-w-sm w-full text-center"
-              initial={{ scale: 0.8, y: 30 }}
-              animate={{ scale: 1, y: 0 }}
-              exit={{ scale: 0.8, y: 30 }}
-              onClick={(e) => e.stopPropagation()}
-              style={{
-                backgroundColor: 'var(--bg-card)',
-                border: `2px solid ${selectedAchievement.unlocked ? 'var(--border-glow)' : 'var(--border-color)'}`,
-                boxShadow: `0 0 30px ${selectedAchievement.unlocked ? 'var(--border-glow)' : 'transparent'}`,
+            <span className="block text-2xl mb-1">{ach.unlocked ? '🏆' : '🔒'}</span>
+            <span
+              className={`block text-xs font-mono editable-area ${isEditing ? 'editing' : ''}`}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isEditing && onUpdate) {
+                  openModal({ type: 'text', label: '成就名称', value: ach.name, onSave: (v: string) => {
+                    const arr = [...achievements];
+                    arr[i] = { ...arr[i], name: v };
+                    onUpdate(['achievements'], arr);
+                  }});
+                }
               }}
+              style={{ color: ach.unlocked ? 'var(--accent)' : 'var(--text-secondary)' }}
             >
-              <div className="text-5xl mb-4">{selectedAchievement.icon}</div>
-              <h4
-                className="font-display text-lg mb-2"
+              {ach.name}
+            </span>
+          </motion.div>
+        ))}
+      </div>
+
+      <AnimatePresence>
+        {selected && (
+          <motion.div
+            className="fixed inset-0 z-[90] flex items-center justify-center p-4"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            onClick={() => setSelected(null)}
+          >
+            <div className="absolute inset-0 bg-black/50" />
+            <motion.div
+              className="relative p-6 rounded-lg max-w-sm w-full z-10"
+              style={{ backgroundColor: 'var(--bg-card)', border: '2px solid var(--border-color)' }}
+              initial={{ scale: 0.9 }} animate={{ scale: 1 }} exit={{ scale: 0.9 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <span className="text-4xl block text-center mb-3">{selected.unlocked ? '🏆' : '🔒'}</span>
+              <h3
+                className={`text-lg font-display text-center editable-area ${isEditing ? 'editing' : ''}`}
                 style={{ color: 'var(--accent)' }}
-              >
-                {selectedAchievement.name}
-              </h4>
-              <p style={{ color: 'var(--text-secondary)' }} className="text-sm mb-3">
-                {selectedAchievement.description}
-              </p>
-              {selectedAchievement.unlocked && selectedAchievement.unlockDate && (
-                <div
-                  className="text-xs font-mono px-3 py-1 rounded inline-block"
-                  style={{
-                    backgroundColor: 'var(--bg-secondary)',
-                    color: 'var(--success)',
-                  }}
-                >
-                  解锁于 {selectedAchievement.unlockDate}
-                </div>
-              )}
-              {!selectedAchievement.unlocked && (
-                <div
-                  className="text-xs font-mono px-3 py-1 rounded inline-block"
-                  style={{
-                    backgroundColor: 'var(--bg-secondary)',
-                    color: 'var(--text-secondary)',
-                  }}
-                >
-                  尚未解锁
-                </div>
-              )}
-              <button
-                className="game-button mt-4 mx-auto"
-                onClick={() => setSelectedAchievement(null)}
-              >
-                关闭
-              </button>
+                onClick={isEditing && onUpdate ? () => openModal({ type: 'text', label: '成就名称', value: selected.name, onSave: (v: string) => {
+                  const arr = achievements.map(a => a.id === selected.id ? { ...a, name: v } : a);
+                  onUpdate(['achievements'], arr);
+                  setSelected({ ...selected, name: v });
+                }}) : undefined}
+              >{selected.name}</h3>
+              <p
+                className={`text-sm text-center mt-2 editable-area ${isEditing ? 'editing' : ''}`}
+                style={{ color: 'var(--text-secondary)' }}
+                onClick={isEditing && onUpdate ? () => openModal({ type: 'text', label: '成就描述', value: selected.description, onSave: (v: string) => {
+                  const arr = achievements.map(a => a.id === selected.id ? { ...a, description: v } : a);
+                  onUpdate(['achievements'], arr);
+                  setSelected({ ...selected, description: v });
+                }}) : undefined}
+              >{selected.description}</p>
+              <button className="game-button text-xs w-full mt-4" onClick={() => setSelected(null)}>关闭</button>
             </motion.div>
           </motion.div>
         )}
